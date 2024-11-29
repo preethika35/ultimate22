@@ -10,6 +10,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/preethika35/ultimate22.git'
+
             }
         }
 
@@ -24,6 +25,7 @@ pipeline {
 
         stage('Test') {
             steps {
+                
                 sh '''
                 echo "Running tests..."
                 ./test.sh
