@@ -1,0 +1,70 @@
+pipeline {
+    agent any
+
+    environment {
+        // Define any environment variables here
+        EXAMPLE_VAR = 'example_value'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/your-repo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh '''
+                echo "Building the project..."
+                ./build.sh
+                '''
+            }
+        }
+
+        stage('Test') {
+            steps {
+                sh '''
+                echo "Running tests..."
+                ./test.sh
+                '''
+            }
+        }
+
+        stage('Code Analysis') {
+            steps {
+                sh '''
+                echo "Analyzing code..."
+                ./code_analysis.sh
+                '''
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh '''
+                echo "Deploying the project..."
+                ./deploy.sh
+                '''
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+        always {
+            echo 'Pipeline finished.'
+        }
+    }
+}
+
+
+
+
+
+
