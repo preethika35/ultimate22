@@ -1,70 +1,28 @@
 pipeline {
-    agent any
-
-    environment {
-        // Define any environment variables here
-        EXAMPLE_VAR = 'example_value'
-    }
-
-    stages {
-        stage('Checkout') {
+      agent any
+      options {
+            skipStagesAfterunstable()
+      }
+     stages  {
+         stage('Rajkumar stage for demo') {
             steps {
-                git branch: 'main', url: 'https://github.com/preethika35/ultimate22.git'
+              sh 'java --version'
+              sh  'ls -l; lsblk
+              sh  'echo  $BRANCH_NAME'
+              }
+           }
 
-            }
-        }
+          stage('ramu stage' ) {
+              steps {
+                sh 'touch /tmp/ram.py'
+                sh 'echo "helloworld" '
+                sh  "python3  /tmp/ram.py"
 
-        stage('Build') {
-            steps {
-                sh '''
-                echo "Building the project..."
-                ./build.sh
-                '''
-            }
-        }
+              }
+             }
 
-        stage('Test') {
-            steps {
-                
-                sh '''
-                echo "Running tests..."
-                ./test.sh
-                '''
-            }
-        }
-
-        stage('Code Analysis') {
-            steps {
-                sh '''
-                echo "Analyzing code..."
-                ./code_analysis.sh
-                '''
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                sh '''
-                echo "Deploying the project..."
-                ./deploy.sh
-                '''
-            }
-        }
-    }
-
-    post {
-        success {
-            echo 'Pipeline completed successfully.'
-        }
-        failure {
-            echo 'Pipeline failed.'
-        }
-        always {
-            echo 'Pipeline finished.'
-        }
-    }
-}
-
+      }
+         
 
 
 
