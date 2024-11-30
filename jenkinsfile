@@ -1,30 +1,48 @@
 pipeline {
-      agent any
-      options {
-            skipStagesAfterunstable()
-      }
-     stages  {
-         stage('Rajkumar stage for demo') {
+    agent any
+
+    stages {
+        stage('Checkout') {
             steps {
-              sh 'java --version'
-              sh  'ls -l; lsblk
-              sh  'echo  $BRANCH_NAME'
-              }
-           }
+                // Checkout code from version control
+                git branch: 'main', url: 'https://github.com/your-repo.git'
+            }
+        }
 
-          stage('ramu stage' ) {
-              steps {
-                sh 'touch /tmp/ram.py'
-                sh 'echo "helloworld" '
-                sh  "python3  /tmp/ram.py"
+        stage('Build') {
+            steps {
+                // Build the project
+                echo 'Building the project...'
+                sh 'echo "Build command goes here"'
+            }
+        }
 
-              }
-             }
+        stage('Test') {
+            steps {
+                // Run tests
+                echo 'Running tests...'
+                sh 'echo "Test command goes here"'
+            }
+        }
 
-      }
-         
+        stage('Deploy') {
+            steps {
+                // Deploy the project
+                echo 'Deploying the project...'
+                sh 'echo "Deploy command goes here"'
+            }
+        }
+    }
 
-
-
-
-
+    post {
+        success {
+            echo 'Pipeline completed successfully.'
+        }
+        failure {
+            echo 'Pipeline failed.'
+        }
+        always {
+            echo 'Pipeline finished.'
+        }
+    }
+}
